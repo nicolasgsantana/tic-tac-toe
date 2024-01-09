@@ -24,7 +24,7 @@ const gameBoard = (() => {
 const gameController = (() => {
     const players = [createPlayer("Player 1", 1), createPlayer("Player 2", 2)];
 
-    const activePlayer = players[0];
+    let activePlayer = players[0];
 
     const switchActivePlayer = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
@@ -68,7 +68,7 @@ const gameController = (() => {
 
         gameBoard.placeToken(x, y, activePlayer.token);
 
-        if (victoryAchieved) {
+        if (victoryAchieved()) {
             console.log(`${activePlayer.name} won!`);
         }
         else {
