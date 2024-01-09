@@ -71,11 +71,10 @@ const gameController = (() => {
         if (victoryAchieved()) {
             console.log(`${activePlayer.name} won!`);
         }
-        else {
-            gameBoard.getBoard();
-            switchActivePlayer();
-            playRound();
-        }
+
+        console.log(gameBoard.getBoard());
+
+        switchActivePlayer();
     };
 
     return { getActivePlayer, playRound };
