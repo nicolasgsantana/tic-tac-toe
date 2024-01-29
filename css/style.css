@@ -114,3 +114,13 @@ p.right {
 .cell {
     background-color: var(--bg-color);
 }
+
+.cell svg {
+    fill: var(--main-color);
+    height: 100%;
+    display: none;
+}
+
+svg.o {
+    display: inline;
+}
