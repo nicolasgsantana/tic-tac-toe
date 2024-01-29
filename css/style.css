@@ -101,4 +101,16 @@ p.right {
     width: clamp(250px, 500px, 90%);
     height: clamp(250px, 500px, 90%);
     background-color: var(--main-color);
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 0.4rem;
+
+    justify-items: stretch;
+    align-items: stretch;
+}
+
+.cell {
+    background-color: var(--bg-color);
 }
