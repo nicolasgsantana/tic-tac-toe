@@ -58,3 +58,19 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    justify-items: center;
+
+    overflow: hidden;
+}
+
+main p {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+
+    font-size: 2rem;
+    text-transform: uppercase;
+}
