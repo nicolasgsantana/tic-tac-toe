@@ -60,9 +60,11 @@ footer a:hover {
 }
 
 main {
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr 5fr 1fr;
     justify-items: center;
+    align-items: center;
 
     overflow: hidden;
 }
@@ -70,7 +72,14 @@ main {
 main p {
     writing-mode: vertical-lr;
     text-orientation: upright;
+    text-align: center;
+    letter-spacing: -0.5rem;
 
     font-size: 2rem;
     text-transform: uppercase;
+    height: 100%;
+}
+
+p.right {
+    writing-mode: vertical-rl;
 }
