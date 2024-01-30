@@ -84,10 +84,20 @@ const visualsController = (() => {
     const board = document.querySelector(".board");
     const cells = Array.from(board.children);
 
+    const root = document.querySelector(":root");
+    const THEMES = [["#070707", "#F5F0F6"], ["#F5F0F6", "#070707"], ["#101820", "#FEE715"], ["#070952", "#ef4da0"], ["#FBEAEB", "#2E3C7E"]];
+
     // Each cell has 2 children elements
     // First child element is the "O" symbol svg and the second is the "X" symbol
 
     cells.forEach(cell => {
         cell.children[1].style.display = "block";
     });
+
+    const switchColorScheme = (themeIndex) => {
+        root.style.setProperty('--bg-color', THEMES[themeIndex][0]);
+        root.style.setProperty('--main-color', THEMES[themeIndex][1]);
+    };
+
+    switchColorScheme(4);
 })();

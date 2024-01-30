@@ -5,9 +5,9 @@
     --main-color: #F5F0F6;
 
     font-family: 'Kanit', sans-serif;
-    color: #F5F0F6;
+    color: var(--main-color);
 
-    background-color: #070707;
+    background-color: var(--bg-color);
 }
 
 * {
