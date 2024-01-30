@@ -89,15 +89,15 @@ const visualsController = (() => {
 
     // Each cell has 2 children elements
     // First child element is the "O" symbol svg and the second is the "X" symbol
-
-    cells.forEach(cell => {
-        cell.children[1].style.display = "block";
-    });
+    const updatePreviewSymbol = (playerToken) => {
+        cells.forEach(cell => {
+            cell.children[playerToken].style.display = "block";
+            cell.children[playerToken === 0 ? 1 : 0].style.display = "none";
+        });
+    }
 
     const switchColorScheme = (themeIndex) => {
         root.style.setProperty('--bg-color', THEMES[themeIndex][0]);
         root.style.setProperty('--main-color', THEMES[themeIndex][1]);
     };
-
-    switchColorScheme(4);
 })();
