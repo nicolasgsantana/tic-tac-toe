@@ -119,5 +119,14 @@ p.right {
 
 .cell svg {
     fill: var(--main-color);
+    height: 100%;
     display: none;
+}
+
+.cell.empty svg {
+    opacity: 0;
+}
+
+.cell.empty svg:hover {
+    opacity: 0.3;
 }

@@ -79,3 +79,15 @@ const gameController = (() => {
 
     return { getActivePlayer, playRound };
 })();
+
+const visualsController = (() => {
+    const board = document.querySelector(".board");
+    const cells = Array.from(board.children);
+
+    // Each cell has 2 children elements
+    // First child element is the "O" symbol svg and the second is the "X" symbol
+
+    cells.forEach(cell => {
+        cell.children[1].style.display = "block";
+    });
+})();
