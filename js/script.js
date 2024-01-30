@@ -84,6 +84,8 @@ const visualsController = (() => {
     const board = document.querySelector(".board");
     const cells = Array.from(board.children);
 
+    const paragraphs = document.querySelectorAll("main p");
+
     const root = document.querySelector(":root");
     const THEMES = [["#070707", "#F5F0F6"], ["#F5F0F6", "#070707"], ["#101820", "#FEE715"], ["#070952", "#ef4da0"], ["#FBEAEB", "#2E3C7E"]];
 
@@ -94,10 +96,16 @@ const visualsController = (() => {
             cell.children[playerToken].style.display = "block";
             cell.children[playerToken === 0 ? 1 : 0].style.display = "none";
         });
-    }
+    };
 
     const switchColorScheme = (themeIndex) => {
         root.style.setProperty('--bg-color', THEMES[themeIndex][0]);
         root.style.setProperty('--main-color', THEMES[themeIndex][1]);
+    };
+
+    const updateTexts = (text) => {
+        paragraphs.forEach(paragraph => {
+            paragraph.innerText = text;
+        });
     };
 })();
