@@ -18,13 +18,21 @@ const gameBoard = (() => {
         return board;
     };
 
-    return { placeToken, getBoard };
+    const resetBoard = () => {
+        for (let i = 0; i < board.length; i++) {
+            board[i] = -1;
+        }
+    }
+
+    return { placeToken, getBoard, resetBoard };
 })();
 
 const visualsController = (() => {
     const board = document.querySelector(".board");
     const cells = Array.from(board.children);
-    const paragraphs = document.querySelectorAll("main p")
+    const paragraphs = document.querySelectorAll("main p");
+
+    const resetBtn = document.querySelector("header button");
 
     const root = document.querySelector(":root");
     const THEMES = [["#070707", "#F5F0F6"], ["#F5F0F6", "#070707"], ["#101820", "#FEE715"], ["#070952", "#ef4da0"], ["#FBEAEB", "#2E3C7E"]];
@@ -50,6 +58,17 @@ const visualsController = (() => {
         });
     };
 
+    const resetCells = () => {
+        cells.forEach(cell => {
+            if (!cell.classList.contains("empty")) {
+                cell.classList.toggle("empty");
+            }
+            for (child of cell.children) {
+                child.style.display = "none";
+            }
+        });
+    }
+
     const updateTexts = (text) => {
         paragraphs.forEach(p => {
             p.innerText = text;
@@ -69,26 +88,24 @@ const visualsController = (() => {
         console.log("Place token");
     };
 
-    const initializeCells = () => {
+    const addEvents = () => {
         cells.forEach(cell => {
             cell.addEventListener('click', () => {
                 if (cell.classList.contains("empty") && !gameController.victoryAchieved())
                     gameController.playRound(cells.indexOf(cell));
             });
         });
+
+        resetBtn.addEventListener('click', gameController.resetGame);
     };
 
-    return { showToken, updateTexts, updatePreviewSymbol, initializeCells, disablePreviewSymbol }
+    return { showToken, updateTexts, updatePreviewSymbol, addEvents, disablePreviewSymbol, resetCells }
 })();
 
 const gameController = (() => {
     const players = [createPlayer("Player 1", 1), createPlayer("Player 2", 0)];
 
-    let activePlayer = players[0];
-
-    //Initialization
-    visualsController.updatePreviewSymbol(activePlayer.token);
-    visualsController.updateTexts(`${activePlayer.name} turn`)
+    let activePlayer;
 
     const switchActivePlayer = () => {
         activePlayer = activePlayer === players[0] ? players[1] : players[0];
@@ -136,8 +153,6 @@ const gameController = (() => {
     };
 
     const playRound = (index) => {
-        visualsController.updateTexts(`${activePlayer.name} turn`)
-
         if (gameBoard.placeToken(index, activePlayer.token)) {
             visualsController.showToken(index, activePlayer.token);
         }
@@ -153,10 +168,25 @@ const gameController = (() => {
         else {
             switchActivePlayer();
             visualsController.updatePreviewSymbol(activePlayer.token);
+            visualsController.updateTexts(`${activePlayer.name} turn`);
         }
     };
 
-    return { playRound, victoryAchieved };
+    const startGame = () => {
+        resetGame();
+        visualsController.addEvents();
+    }
+
+    const resetGame = () => {
+        gameBoard.resetBoard();
+        visualsController.resetCells();
+
+        activePlayer = players[0];
+        visualsController.updatePreviewSymbol(activePlayer.token);
+        visualsController.updateTexts(`${activePlayer.name} turn`);
+    }
+
+    return { playRound, victoryAchieved, startGame, resetGame };
 })();
 
-visualsController.initializeCells();
+gameController.startGame();
