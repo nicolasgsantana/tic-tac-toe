@@ -143,7 +143,11 @@ const gameController = (() => {
         }
 
         if (victoryAchieved()) {
-            visualsController.updateTexts(`${activePlayer.name} won!`);
+            visualsController.updateTexts(`${activePlayer.name} won`);
+            visualsController.disablePreviewSymbol();
+        }
+        else if (!gameBoard.getBoard().includes(-1)) {
+            visualsController.updateTexts("Draw");
             visualsController.disablePreviewSymbol();
         }
         else {
