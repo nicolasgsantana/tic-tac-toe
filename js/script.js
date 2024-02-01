@@ -33,6 +33,7 @@ const visualsController = (() => {
     const paragraphs = document.querySelectorAll("main p");
 
     const resetBtn = document.querySelector("header button");
+    const select = document.querySelector("header select");
 
     const root = document.querySelector(":root");
     const THEMES = [["#070707", "#F5F0F6"], ["#F5F0F6", "#070707"], ["#101820", "#FEE715"], ["#070952", "#ef4da0"], ["#FBEAEB", "#2E3C7E"]];
@@ -97,6 +98,10 @@ const visualsController = (() => {
         });
 
         resetBtn.addEventListener('click', gameController.resetGame);
+
+        select.addEventListener('click', () => {
+            switchColorScheme(Number(select.value));
+        })
     };
 
     return { showToken, updateTexts, updatePreviewSymbol, addEvents, disablePreviewSymbol, resetCells }
