@@ -33,16 +33,28 @@ const visualsController = (() => {
     // First child element is the "O" symbol svg and the second is the "X" symbol
     const updatePreviewSymbol = (playerToken) => {
         cells.forEach(cell => {
-            cell.children[playerToken].style.display = "block";
-            cell.children[playerToken === 0 ? 1 : 0].style.display = "none";
+            if (cell.classList.contains("empty")) {
+                cell.children[playerToken].style.display = "block";
+                cell.children[playerToken === 0 ? 1 : 0].style.display = "none";
+            }
         });
-    }
+    };
+
+    const disablePreviewSymbol = () => {
+        cells.forEach(cell => {
+            if (cell.classList.contains("empty")) {
+                for (child of cell.children) {
+                    child.style.display = "none";
+                }
+            }
+        });
+    };
 
     const updateTexts = (text) => {
         paragraphs.forEach(p => {
             p.innerText = text;
         });
-    }
+    };
 
     const switchColorScheme = (themeIndex) => {
         root.style.setProperty('--bg-color', THEMES[themeIndex][0]);
@@ -55,18 +67,18 @@ const visualsController = (() => {
         cell.classList.toggle("empty");
         svg.style.display = "block";
         console.log("Place token");
-    }
+    };
 
     const initializeCells = () => {
         cells.forEach(cell => {
             cell.addEventListener('click', () => {
-                if (cell.classList.contains("empty"))
+                if (cell.classList.contains("empty") && !gameController.victoryAchieved())
                     gameController.playRound(cells.indexOf(cell));
             });
         });
     };
 
-    return { showToken, updateTexts, updatePreviewSymbol, initializeCells }
+    return { showToken, updateTexts, updatePreviewSymbol, initializeCells, disablePreviewSymbol }
 })();
 
 const gameController = (() => {
@@ -132,6 +144,7 @@ const gameController = (() => {
 
         if (victoryAchieved()) {
             visualsController.updateTexts(`${activePlayer.name} won!`);
+            visualsController.disablePreviewSymbol();
         }
         else {
             switchActivePlayer();
@@ -139,7 +152,7 @@ const gameController = (() => {
         }
     };
 
-    return { playRound };
+    return { playRound, victoryAchieved };
 })();
 
 visualsController.initializeCells();
