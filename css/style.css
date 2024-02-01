@@ -57,6 +57,26 @@ button:active {
     filter: brightness(85%);
 }
 
+select {
+    margin-left: 1rem;
+    
+    font-size: 1.5rem;
+    border: 2px solid var(--main-color);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+
+    background-color: var(--bg-color);
+    color: var(--main-color);
+
+    outline: none;
+    
+}
+
+select:hover, select:active {
+    background-color: var(--main-color);
+    color: var(--bg-color);
+}
+
 hr {
     border: none;
     height: 1px;
